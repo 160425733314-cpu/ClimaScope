@@ -1,6 +1,8 @@
 import type { Dashboard, Risk } from "../types";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+// Vercel routes /api to the backend service. VITE_API_URL remains available
+// for local development against a separately running API.
+const API = import.meta.env.VITE_API_URL || "";
 export async function getDashboard(city: string): Promise<Dashboard> {
   const response = await fetch(`${API}/api/dashboard?city=${encodeURIComponent(city)}`);
   if (!response.ok) throw new Error((await response.json()).detail || "Unable to load climate data");

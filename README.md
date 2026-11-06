@@ -34,6 +34,17 @@ npm run dev
 
 Open http://localhost:5173. The API health check is http://localhost:8000/api/health and interactive API documentation is available at http://localhost:8000/docs.
 
+## Vercel deployment
+
+The root `vercel.json` configures two services in one Vercel project:
+
+- `backend`: FastAPI service rooted at `backend`, publicly routed under `/api/*`.
+- `frontend`: Vite service rooted at `frontend`, publicly routed for all other paths.
+
+The frontend defaults to the same-origin `/api` route in deployments, so no backend URL environment variable is required. Set `VITE_API_URL=http://localhost:8000` only when running the frontend locally against a separately started backend.
+
+There are currently no service bindings: the frontend is a browser client and must use the public `/api` rewrite, while the backend calls Open-Meteo directly and does not call the frontend service.
+
 ## Validation
 
 ```bash
